@@ -19,7 +19,7 @@ func _physics_process(delta):
     
     # if State changed, call transition function
     if pstate != state:
-        if pstate == State.FoundPlayer && state == State.FoundPlayer:
+        if pstate == State.FoundPlayer && state == State.LostPlayer:
             transition_chase_to_wander()
         pstate = state
     
@@ -51,5 +51,4 @@ func wander_state(delta):
         state = State.FoundPlayer
 
 func transition_chase_to_wander():
-    if velocity == Vector2.ZERO:
-        velocity = Vector2.RIGHT.rotated(randf_range(0, TAU)) * max_speed
+    velocity = Vector2.RIGHT.rotated(randf_range(0, TAU)) * max_speed

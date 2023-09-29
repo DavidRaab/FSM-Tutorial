@@ -20,15 +20,15 @@ func _physics_process(delta):
     # if State changed, call transition function
     if pstate != state:
         if pstate == State.FoundPlayer && state == State.LostPlayer:
-            transition_chase_to_wander()
+            transition_LostPlayer_FoundPlayer()
         pstate = state
     
     # Call the logic for current state
-    if   state == State.FoundPlayer: chase_state(delta)
-    elif state == State.LostPlayer: wander_state(delta)
+    if   state == State.FoundPlayer: FoundPlayer(delta)
+    elif state == State.LostPlayer:  LostPlayer(delta)
 
 
-func chase_state(delta):
+func FoundPlayer(delta):
     animator.scale.x = -sign(velocity.x)
     if animator.scale.x == 0.0: animator.scale.x = 1.0
     
@@ -38,7 +38,7 @@ func chase_state(delta):
     if vision_cast.is_colliding():
         state = State.LostPlayer
 
-func wander_state(delta):
+func LostPlayer(delta):
     animator.scale.x = -sign(velocity.x)
     if animator.scale.x == 0.0: animator.scale.x = 1.0
     
@@ -50,5 +50,6 @@ func wander_state(delta):
     if not vision_cast.is_colliding():
         state = State.FoundPlayer
 
-func transition_chase_to_wander():
+
+func transition_LostPlayer_FoundPlayer():
     velocity = Vector2.RIGHT.rotated(randf_range(0, TAU)) * max_speed

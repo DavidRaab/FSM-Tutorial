@@ -21,10 +21,10 @@ var state  = State.LostPlayer
 # changing the code in _physics_process
 var transitions = {
     State.FoundPlayer: {
-        State.LostPlayer: transition_FoundPlayer_LostPlayer
+        State.LostPlayer: FoundPlayer_LostPlayer
     },
     State.LostPlayer: {
-        State.FoundPlayer: transition_LostPlayer_FoundPlayer
+        State.FoundPlayer: LostPlayer_FoundPlayer
     }
 }
 
@@ -57,7 +57,7 @@ func _physics_process(delta):
         State.FoundPlayer: FoundPlayer(delta)
         State.LostPlayer:  LostPlayer(delta)
 
-
+## States
 func FoundPlayer(delta):
     animator.scale.x = -sign(velocity.x)
     if animator.scale.x == 0.0: animator.scale.x = 1.0
@@ -81,10 +81,11 @@ func LostPlayer(delta):
         state = State.FoundPlayer
 
 
-func transition_FoundPlayer_LostPlayer():
+## Transitions
+func FoundPlayer_LostPlayer():
     print("Lost Player")
     velocity = Vector2.RIGHT.rotated(randf_range(0, TAU)) * max_speed
 
-func transition_LostPlayer_FoundPlayer():
+func LostPlayer_FoundPlayer():
     print("Found Player")
     

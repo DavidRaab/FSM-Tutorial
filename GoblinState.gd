@@ -83,9 +83,9 @@ func LostPlayer(delta):
 
 ## Transitions
 func FoundPlayer_LostPlayer():
-    print("Lost Player")
+    print("G1 Lost Player")
     velocity = Vector2.RIGHT.rotated(randf_range(0, TAU)) * max_speed
 
 func LostPlayer_FoundPlayer():
-    print("Found Player")
+    print("G1 Found Player")
     
